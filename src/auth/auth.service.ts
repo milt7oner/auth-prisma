@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 import { getUserByEmail, editUser, getUserById } from "./user.service";
 import { z } from "zod";
-import { config } from "../../config/config";
-import { UserWithoutPassword, MessageRecovery } from "../routes/v1/types";
+import { config } from "../config/config";
+import { UserWithoutPassword, MessageRecovery } from "../types";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import boom from "@hapi/boom";
