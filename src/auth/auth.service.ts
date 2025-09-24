@@ -34,7 +34,7 @@ export async function sendRecovery(email: string) {
   const payload = { sub: user.id };
   const token = jwt.sign(payload, config.jwtSecretRecovery, { expiresIn: "15m" });
 
-  const link = `${config.frontendUrl}/recovery?token=${token}`;
+  const link = `http://myfrontend.com/recovery?token=${token}`;
   await editUser(user.id, { recoveryToken: token });
 
   const mail: MessageRecovery = {
@@ -50,9 +50,9 @@ export async function sendRecovery(email: string) {
 
 export async function sendMail(infoMail: MessageRecovery) {
   const transporter = nodemailer.createTransport({
-    host: config.smtpHost,
+    host: "smtp.gmail.com",
     secure: true,
-    port: config.smtpPort,
+    port: 465,
     auth: {
       user: config.emailRecobery,
       pass: config.emailSecret,
@@ -70,28 +70,27 @@ export function signToken(user: userToken) {
 }
 
 export async function changePasswordUser(token: string, newPassword: string) {
-  const { token: validatedToken, newPassword: validatedPassword } = ChangePasswordSchema.parse({
-    token,
-    newPassword,
-  });
-
   try {
-    const payload = jwt.verify(validatedToken, config.jwtSecretRecovery) as jwt.JwtPayload;
+    const payload = jwt.verify(token, config.jwtSecretRecovery);
 
-    if (!payload.sub) throw boom.unauthorized("Invalid token");
+    if (typeof payload.sub === "number") {
+      const userId = payload.sub;
 
-    const user = await getUserById(payload.sub as number);
+      const user = await getUserById(userId);
 
-    if (!user || user.recoveryToken !== validatedToken) {
-      throw boom.unauthorized("Invalid or expired token");
+      if (user?.recoveryToken !== token) {
+        throw boom.notFound("user no found "); // Devuelve el objeto de error personalizado
+      }
+      const hash = await bcrypt.hash(
+        typeof newPassword === "string" ? newPassword : "",
+        10,
+      );
+      await editUser(user.id, { recoveryToken: null, password: hash });
+      return { message: "Password Change" };
     }
-
-    const hash = await bcrypt.hash(validatedPassword, 10);
-    await editUser(user.id, { recoveryToken: null, password: hash });
-
-    return { success: true, data: { message: "Password changed successfully" } };
-  } catch (error) {
-    throw boom.unauthorized("Invalid or expired token");
+  } catch (e) {
+    return e;
+    // Devuelve el objeto de error personalizado
   }
 }
 

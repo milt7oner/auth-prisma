@@ -1,7 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
-import { UserWithoutPassword } from "./types";
-import { getToken,recoveryPassword,changePassword } from "../../controllers/auth.controller";
+import { UserWithoutPassword } from "../types";
+import { getToken,recoveryPassword,changePassword } from "./auth.controller";
 const router = Router();
 export type userToken = UserWithoutPassword ;
 // login
