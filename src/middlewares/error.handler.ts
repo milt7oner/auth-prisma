@@ -1,28 +1,45 @@
-import { Request, Response, NextFunction } from 'express';
-import { Boom } from '@hapi/boom';
-// Middleware de manejo de errores global
-export function logErrors(err: Error, req: Request, res: Response, next: NextFunction) {
-  console.log("logError")
-  console.error('Error:', err);
-  next(err)
-};
-export function errorHandler(err: Error, req: Request, res: Response, next: NextFunction){
-  console.log("errorHan")
-  console.log(err)
-  res.status(500).json(
-   {
-    message:err.message,
-    stack: err.stack,
-   }
-  )
+import { Request, Response, NextFunction } from "express";
+import { Boom } from "@hapi/boom";
+
+export function logErrors(
+  err: unknown,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  console.error("Error capturado:", err);
+  next(err);
 }
-export function boomErrorHandler(err: Boom, req: Request, res: Response, next: NextFunction): void {
-  if (err.isBoom) {
-    const { output } = err;
-    res.status(output.statusCode).json(output.payload);
-  }else{
-    next(err);
+
+export function boomErrorHandler(
+  err: unknown,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if ((err as Boom).isBoom) {
+    const { output } = (err as Boom);
+    return res.status(output.statusCode).json(output.payload);
+  }
+  next(err);
+}
+
+export function errorHandler(
+  err: unknown,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const statusCode = 500;
+
+  if (err instanceof Error) {
+    return res.status(statusCode).json({
+      message: err.message,
+      ...(process.env.NODE_ENV !== "production" && { stack: err.stack }),
+    });
   }
 
+  return res.status(statusCode).json({
+    message: "Unknown error occurred",
+  });
 }
-

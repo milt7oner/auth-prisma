@@ -1,29 +1,37 @@
 {
-	"dependencies": {
-		"@hapi/boom": "^10.0.1",
-		"@prisma/client": "^6.16.2",
-		"bcrypt": "^6.0.0",
-		"dotenv": "^17.2.2",
-		"express": "^5.1.0",
-		"jsonwebtoken": "^9.0.2",
-		"nodemailer": "^7.0.6",
-		"passport": "^0.7.0",
-		"passport-jwt": "^4.0.1",
-		"passport-local": "^1.0.0",
-		"zod": "^4.1.11"
-	},
-	"devDependencies": {
-		"@types/bcrypt": "^6.0.0",
-		"@types/express": "^5.0.3",
-		"@types/jsonwebtoken": "^9.0.10",
-		"@types/node": "^24.5.2",
-		"@types/nodemailer": "^7.0.1",
-		"@types/passport": "^1.0.17",
-		"@types/passport-jwt": "^4.0.1",
-		"@types/passport-local": "^1.0.38",
-		"nodemon": "^3.1.10",
-		"prisma": "^6.16.2",
-		"ts-node": "^10.9.2",
-		"typescript": "^5.9.2"
-	}
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@prisma/client": "^6.16.2",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^7.0.6",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.5.2",
+    "@types/nodemailer": "^7.0.1",
+    "@types/passport": "^1.0.17",
+    "@types/passport-jwt": "^4.0.1",
+    "@types/passport-local": "^1.0.38",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.16.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+   "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint"
+  }
 }

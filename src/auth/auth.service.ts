@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { getUserByEmail, editUser, getUserById } from "./user.service";
+import { getUserByEmail, editUser, getUserById } from "../user/user.service";
 import { z } from "zod";
 import { config } from "../config/config";
 import { UserWithoutPassword, MessageRecovery } from "../types";

@@ -18,7 +18,7 @@ const LocalStrategy = new Strategy(
       const loginData = LoginSchema.parse({ email, password });
       const user = await getUser(loginData.email, loginData.password);
       // Verificar si el usuario existe y si su estado es true
-      if (user && user.state === true) {
+      if (user && user.data.state === true) {
         return done(null, user);
       } else {
         return done(boom.unauthorized('User is not allowed to login'), false);

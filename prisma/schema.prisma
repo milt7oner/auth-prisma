@@ -18,6 +18,7 @@ model User {
   lastName      String?
   email         String    @unique
   password      String
+  recoveryToken String?
   userName      String?   @unique
   birthdate     DateTime?
   state         Boolean   @default(true)

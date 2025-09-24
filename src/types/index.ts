@@ -1,5 +1,4 @@
-
-
+import { Role } from "@prisma/client";
 
 export type UserWithoutPassword = {
   id: number;
@@ -12,6 +11,7 @@ export type UserWithoutPassword = {
 export type User={
   sub:number;
   iat: number;
+  role:Role;
 }
 export type MessageRecovery = {
   from: string;

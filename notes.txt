@@ -1,0 +1,62 @@
+# ADD TYPESCRIPT AND CLI AS  DEV DEPENDENCY
+npm install express nodemon dotenv prisma typescript ts-node  @types/node --save-dev
+
+# ADD EXPRESS TYPES AS DEV DEPENDENCY
+npm i --save-dev @types/express
+
+# IF THERE'S AN ERROR RELATED TO "UNKNOWN FILE EXTENSION" delete type:"module" from package.json
+
+# INITIALIZE TYPESCRIPT
+npx tsc --init
+
+#INVOKE PRISMA CLI
+npx prisma
+
+#CREATE PRISMA SCHEMAFILE
+npx prisma init
+
+#NEW MIGRATION (CHANGES ON DATABASE SCHEMA)
+npx prisma migrate dev --name user-table-changed
+
+#APPLY LATEST CHANGES ON DATABASE SCHEMA (APPLIES ALL THE MIGRATIONS DONE BY ANYONE)
+npx prisma migrate dev
+
+#APPLY ESPECIFIC MIGRATION
+npx prisma migrate dev --name 'third_migration_name'
+
+#RESET MIGRATION
+npx prisma migrate reset
+
+
+#UPLOAD THE DATAMODEL IN PRODUCTION
+npx prisma migrate up --experimental
+
+#INSTALL PRISMA CLIENT TO QUERY DE DATABASE
+npm install @prisma/client
+
+#READ PRISMA SCHEMA AND GENERATE A PRISMA CLIENT THAT ADAPTS TO THE DB MODELS(when changes in the schema for ex: new model is added)
+prisma generate
+
+#Dependecy for good practics
+npm i  eslint eslint-config-prettier eslint-plugin-prettier prettier -D
+
+# re-establish the link between schema.prisma and .env file.
+npx prisma generate
+#Emcrypt Password
+npm i bcrypt
+npm install --save-dev @types/bcrypt
+
+#Passport.js
+   npm install passport-local
+#Pssport Jwt and Local for TS
+npm install passport passport-jwt @types/passport @types/passport-jwt
+npm install passport passport-local @types/passport @types/passport-local
+
+#Nodemailer
+npm install nodemailer
+#Mongo DB Modifica los shemas en la base de datos
+npx prisma db push
+GIT CREDENTIAL MANAGER
+git credential-manager github --help
+git credential-manager github list
+git credential-manager github login
